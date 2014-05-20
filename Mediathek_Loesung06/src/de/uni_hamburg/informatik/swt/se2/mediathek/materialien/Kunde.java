@@ -67,7 +67,7 @@ public class Kunde
         result += SPACE + "Anschrift:\n" + getAnschrift() + "\n";
         return result;
     }
-    // ganz viel code
+    // ganz viel code 
 
     /**
      * Gibt die Kundenummer zurück.
