@@ -217,7 +217,7 @@ public class VormerkWerkzeug
         // werden. Ist dies korrekt imlpementiert, wird der Vormerk-Button gemäß
         // der Anforderungen a), b), c) und e) aktiviert.
         boolean vormerkenMoeglich = (kunde != null) && !medien.isEmpty();
-        
+        //vormerker1 darf nicht gleich vormerker2 sein etc.
         if (vormerkenMoeglich == false)
         {
             return false;
@@ -264,7 +264,7 @@ public class VormerkWerkzeug
         {
             medium.fuegeVormerkerHinzu(selectedKunde);
         }
-        
+        //button aktualisieren
     }
     
     /**
