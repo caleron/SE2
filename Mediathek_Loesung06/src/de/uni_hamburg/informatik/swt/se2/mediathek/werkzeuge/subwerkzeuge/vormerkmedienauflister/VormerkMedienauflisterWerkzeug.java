@@ -97,7 +97,7 @@ public class VormerkMedienauflisterWerkzeug extends ObservableSubWerkzeug
 
 			if (medium.gibAnzahlVormerker() >= 1)
 			{
-				medium.gibErstenVormerker();
+				vormerker1 = medium.gibErstenVormerker();
 			}
 			if (medium.gibAnzahlVormerker() >= 2)
 			{

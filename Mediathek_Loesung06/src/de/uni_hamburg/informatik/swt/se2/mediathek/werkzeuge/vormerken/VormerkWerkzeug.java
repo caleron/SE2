@@ -275,7 +275,7 @@ public class VormerkWerkzeug
         aktualisiereVormerkButton();
         
         // Oberfläche aktualisieren
-        ((VerleihServiceImpl) _verleihService).informiereUeberAenderung();
+         _verleihService.informiere();
         
     }
     

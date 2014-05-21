@@ -283,4 +283,10 @@ public class VerleihServiceImpl extends AbstractObservableService implements
         return result;
     }
 
+    @Override
+    public void informiere()
+    {
+        informiereUeberAenderung();
+    }
+
 }
