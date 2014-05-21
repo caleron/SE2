@@ -133,5 +133,10 @@ public interface Medium
      */
     boolean istVorgemerkt();
     
-
+    /**
+     * entfernt einen Kunden von der Liste der Vormerker
+     * @param kunde Der Kunde
+     */
+    void entferneVormerker(Kunde kunde);
+    
 }

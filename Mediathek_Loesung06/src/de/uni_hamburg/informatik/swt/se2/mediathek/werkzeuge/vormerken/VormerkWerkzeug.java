@@ -12,7 +12,6 @@ import de.uni_hamburg.informatik.swt.se2.mediathek.services.ServiceObserver;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.kundenstamm.KundenstammService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.MedienbestandService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.verleih.VerleihService;
-import de.uni_hamburg.informatik.swt.se2.mediathek.services.verleih.VerleihServiceImpl;
 import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.SubWerkzeugObserver;
 import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.subwerkzeuge.kundenauflister.KundenauflisterWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.subwerkzeuge.kundendetailanzeiger.KundenDetailAnzeigerWerkzeug;
@@ -162,7 +161,13 @@ public class VormerkWerkzeug
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                merkeAusgewaehlteMedienVor();
+                if (_vormerkUI.getVormerkenButton().getText().equals("vormerken"))
+                {
+                    merkeAusgewaehlteMedienVor();
+                } else
+                {
+                    storniereAusgewaehlteMedien();
+                }
             }
         });
     }
@@ -310,7 +315,16 @@ public class VormerkWerkzeug
     private void aktualisiereVormerkButton()
     {
         boolean istVormerkenMoeglich = istVormerkenMoeglich();
-        _vormerkUI.getVormerkenButton().setEnabled(istVormerkenMoeglich);
+        boolean istVormerkungStornierenMoeglich = istVormerkungStornierenMoeglich();
+        _vormerkUI.getVormerkenButton().setEnabled(istVormerkenMoeglich || istVormerkungStornierenMoeglich);
+        
+        if (istVormerkenMoeglich)
+        {
+            _vormerkUI.getVormerkenButton().setText("vormerken");
+        } else if(istVormerkungStornierenMoeglich)
+        {
+            _vormerkUI.getVormerkenButton().setText("stornieren");
+        }
     }
     
     /**
@@ -321,5 +335,73 @@ public class VormerkWerkzeug
     public JPanel getUIPanel()
     {
         return _vormerkUI.getUIPanel();
+    }
+    
+    /**
+     * Prüft, ob das Stornieren einer Vormerkung möglich ist.
+     */
+    public boolean istVormerkungStornierenMoeglich()
+    {
+        List<Medium> medien = _medienAuflisterWerkzeug.getSelectedMedien();
+        Kunde kunde = _kundenAuflisterWerkzeug.getSelectedKunde();
+        // TODO für Aufgabenblatt 6 (nicht löschen) Zusatz FERTIG
+        boolean stornierenMoeglich = (kunde != null) && !medien.isEmpty();
+        
+
+        if (!stornierenMoeglich)
+        {
+            return false;
+        }
+
+        for (Medium medium : medien)
+        {
+            boolean vormerkerVorhanden = false;
+            for(Kunde vormerker : medium.gibVormerker())
+            {
+                if(vormerker.equals(kunde))
+                {
+                    vormerkerVorhanden = true;
+                }
+            }
+            if (!vormerkerVorhanden)
+            {
+                return false;
+            }
+            
+            if (!medium.istVorgemerkt())
+            {
+                return false;
+            }
+            
+        }
+
+        return stornierenMoeglich;
+    }
+
+    /**
+     * Storniert die Vormerkung für die ausgewählten Medien für einen Kunden. Diese Methode wird
+     * über einen Listener angestoßen, der reagiert, wenn der Benutzer den
+     * VormerkButton drückt.
+     * 
+     * @require istStornierenMoeglich()
+     * @ensure Vormerkung storniert
+     */
+    public void storniereAusgewaehlteMedien()
+    {
+        
+        assert istVormerkungStornierenMoeglich() : "Vorbedingung verletzt: istVormerkungStornierenMoeglich()"; 
+        
+        List<Medium> selectedMedien = _medienAuflisterWerkzeug.getSelectedMedien();
+        Kunde selectedKunde = _kundenAuflisterWerkzeug.getSelectedKunde();
+        // TODO für Aufgabenblatt 6 (nicht löschen): Vormerken stornieren möglich
+        
+        for (Medium medium : selectedMedien)
+        {
+            medium.entferneVormerker(selectedKunde);
+        }
+        aktualisiereVormerkButton();
+        
+        // Oberfläche aktualisieren
+         _verleihService.informiere();
     }
 }

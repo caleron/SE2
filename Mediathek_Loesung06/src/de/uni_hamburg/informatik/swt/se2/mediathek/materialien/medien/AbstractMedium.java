@@ -187,4 +187,16 @@ abstract class AbstractMedium implements Medium
         return _vormerker.size() > 0;
     }
 
+
+    /**
+     * entfernt einen Kunden von der Liste der Vormerker
+     * @param kunde Der Kunde
+     */
+    public void entferneVormerker(Kunde kunde)
+    {
+
+        assert gibAnzahlVormerker() > 0 : "Vorbedingung verletzt: gibAnzahlVormerker() > 0"; 
+
+        _vormerker.remove(kunde);
+    }
 }
