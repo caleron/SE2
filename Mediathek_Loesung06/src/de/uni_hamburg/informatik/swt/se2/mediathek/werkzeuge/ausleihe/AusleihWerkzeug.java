@@ -30,45 +30,48 @@ import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.subwerkzeuge.medien
  */
 public class AusleihWerkzeug
 {
-
+    
     /**
      * Die UI-Komponente der Ausleihe.
      */
     private final AusleiheUI _ausleiheUI;
-
+    
     /**
      * Der Service zum Ausleihen von Medien.
      */
     private final VerleihService _verleihService;
-
+    
     /**
      * Das Sub-Werkzeug zum darstellen und selektieren der Kunden.
      */
     private KundenauflisterWerkzeug _kundenAuflisterWerkzeug;
-
+    
     /**
      * Das Sub-Werkzeug zum darstellen und selektieren der Medien.
      */
     private AusleiheMedienauflisterWerkzeug _medienAuflisterWerkzeug;
-
+    
     /**
      * Das Sub-Werkzeug zum anzeigen der Details der selektieten Medien.
      */
     private MedienDetailAnzeigerWerkzeug _medienDetailAnzeigerWerkzeug;
-
+    
     /**
      * Das Sub-Werkzeug zum anzeigen der Details des selektieten Kunden.
      */
     private KundenDetailAnzeigerWerkzeug _kundenDetailAnzeigerWerkzeug;
-
+    
     /**
      * Initialisiert ein neues AusleihWerkzeug. Es wird die Benutzungsoberfläche
      * mit den Ausleihaktionen erzeugt, Beobachter an den Services registriert
      * und die anzuzeigenden Materialien gesetzt.
      * 
-     * @param medienbestand Der Medienbestand.
-     * @param kundenstamm Der Kundenstamm.
-     * @param verleihService Der Verleih-Service.
+     * @param medienbestand
+     *            Der Medienbestand.
+     * @param kundenstamm
+     *            Der Kundenstamm.
+     * @param verleihService
+     *            Der Verleih-Service.
      * 
      * @require medienbestand != null
      * @require kundenstamm != null
@@ -80,32 +83,32 @@ public class AusleihWerkzeug
         assert medienbestand != null : "Vorbedingung verletzt: medienbestand != null";
         assert kundenstamm != null : "Vorbedingung verletzt: kundenstamm != null";
         assert verleihService != null : "Vorbedingung verletzt: verleihService != null";
-
+        
         _verleihService = verleihService;
-
+        
         // Subwerkzeuge erstellen
         _kundenAuflisterWerkzeug = new KundenauflisterWerkzeug(kundenstamm);
         _medienAuflisterWerkzeug = new AusleiheMedienauflisterWerkzeug(
                 medienbestand, verleihService);
         _medienDetailAnzeigerWerkzeug = new MedienDetailAnzeigerWerkzeug();
         _kundenDetailAnzeigerWerkzeug = new KundenDetailAnzeigerWerkzeug();
-
+        
         // UI erzeugen
         _ausleiheUI = new AusleiheUI(_kundenAuflisterWerkzeug.getUIPanel(),
                 _medienAuflisterWerkzeug.getUIPanel(),
                 _kundenDetailAnzeigerWerkzeug.getUIPanel(),
                 _medienDetailAnzeigerWerkzeug.getUIPanel());
-
+        
         // Beobachter erzeugen und an den Services registrieren
         registriereServiceBeobachter();
-
+        
         // Beobachter erzeugen und an den Subwerkzeugen registrieren
         registriereSubWerkzeugBeobachter();
-
+        
         // Die Ausleihaktionen erzeugen und an der UI registrieren
         registriereUIAktionen();
     }
-
+    
     /**
      * Registriert die Aktionen, die bei benachrichtigungen der Services
      * ausgeführt werden.
@@ -114,7 +117,7 @@ public class AusleihWerkzeug
     {
         registriereAusleihButtonAktualisierenAktion();
     }
-
+    
     /**
      * Registriert die Aktionen, die bei bestimmten Änderungen in Subwerkzeugen
      * ausgeführt werden.
@@ -124,7 +127,7 @@ public class AusleihWerkzeug
         registriereKundenAnzeigenAktion();
         registriereMedienAnzeigenAktion();
     }
-
+    
     /**
      * Registriert die Aktionen, die bei bestimmten UI-Events ausgeführt werden.
      */
@@ -132,7 +135,7 @@ public class AusleihWerkzeug
     {
         registriereAusleihAktion();
     }
-
+    
     /**
      * Registriert die Aktion zur Aktualisierung des Ausleihbuttons, wenn eine
      * Benachrichtigung vom Verleihservice auftaucht.
@@ -141,7 +144,7 @@ public class AusleihWerkzeug
     {
         _verleihService.registriereBeobachter(new ServiceObserver()
         {
-
+            
             @Override
             public void reagiereAufAenderung()
             {
@@ -149,7 +152,7 @@ public class AusleihWerkzeug
             }
         });
     }
-
+    
     /**
      * Registriert die Aktion, die ausgeführt wird, wenn auf den Ausleih-Button
      * gedrückt wird.
@@ -165,7 +168,7 @@ public class AusleihWerkzeug
             }
         });
     }
-
+    
     /**
      * Registiert die Aktion, die ausgeführt wird, wenn ein Kunde ausgewählt
      * wird.
@@ -183,7 +186,7 @@ public class AusleihWerkzeug
                     }
                 });
     }
-
+    
     /**
      * Registiert die Aktion, die ausgeführt wird, wenn ein Medium ausgewählt
      * wird.
@@ -193,7 +196,7 @@ public class AusleihWerkzeug
         _medienAuflisterWerkzeug
                 .registriereBeobachter(new SubWerkzeugObserver()
                 {
-
+                    
                     @Override
                     public void reagiereAufAenderung()
                     {
@@ -202,7 +205,7 @@ public class AusleihWerkzeug
                     }
                 });
     }
-
+    
     /**
      * Überprüft, ob die selektierten Medien ausgeleihen werden können und ob
      * ein Kunde selektiert ist, an den ausgeliehen werden könnte.
@@ -213,15 +216,30 @@ public class AusleihWerkzeug
     {
         List<Medium> medien = _medienAuflisterWerkzeug.getSelectedMedien();
         Kunde kunde = _kundenAuflisterWerkzeug.getSelectedKunde();
-        // TODO für Aufgabenblatt 6 (nicht löschen): So ändern, dass vorgemerkte
+        // TODO für Aufgabenblatt 6 (nicht löschen): Fertig So ändern, dass vorgemerkte
         // Medien nur vom ersten Vormerker ausgeliehen werden können, gemäß
         // Anforderung d).
         boolean ausleiheMoeglich = (kunde != null) && !medien.isEmpty()
                 && _verleihService.sindAlleNichtVerliehen(medien);
-
+        
+        if(!ausleiheMoeglich)
+        {
+            return false;
+        }
+        for (Medium medium : medien)
+        {
+            if (medium.gibAnzahlVormerker() > 0)
+            {
+                if (!(kunde.equals(medium.gibErstenVormerker())))
+                {
+                    return false;
+                }
+            }
+        }
+        
         return ausleiheMoeglich;
     }
-
+    
     /**
      * Leiht die ausgewählten Medien aus. Diese Methode wird über einen Listener
      * angestoßen, der reagiert, wenn der Benutzer den Ausleihen-Button drückt.
@@ -235,14 +253,13 @@ public class AusleihWerkzeug
         {
             Datum heute = Datum.heute();
             _verleihService.verleiheAn(selectedKunde, selectedMedien, heute);
-        }
-        catch (ProtokollierException exception)
+        } catch (ProtokollierException exception)
         {
             JOptionPane.showMessageDialog(null, exception.getMessage(),
                     "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     /**
      * Zeigt die Details der ausgewählten Medien.
      */
@@ -252,7 +269,7 @@ public class AusleihWerkzeug
                 .getSelectedMedien();
         _medienDetailAnzeigerWerkzeug.setMedien(selectedMedien);
     }
-
+    
     /**
      * Zeigt die Details des ausgewählten Kunden (rechts im Fenster)
      */
@@ -261,7 +278,7 @@ public class AusleihWerkzeug
         Kunde kunde = _kundenAuflisterWerkzeug.getSelectedKunde();
         _kundenDetailAnzeigerWerkzeug.setKunde(kunde);
     }
-
+    
     /**
      * Setzt den Ausleihbutton auf benutzbar (enabled) falls die gerade
      * selektierten Medien alle ausgeliehen werden können und ein Kunde
@@ -276,7 +293,7 @@ public class AusleihWerkzeug
         boolean istAusleihenMoeglich = istAusleihenMoeglich();
         _ausleiheUI.getAusleihButton().setEnabled(istAusleihenMoeglich);
     }
-
+    
     /**
      * Gibt das Panel, dass die UI-Komponente darstellt zurück.
      * 

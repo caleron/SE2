@@ -61,7 +61,7 @@ public abstract class ObservableSubWerkzeug
      * Diese Methode muss von der erbenden Klasse immer dann aufgerufen werden,
      * wenn eine Änderung geschehen ist, die für Beobachter interessant ist.
      */
-    protected void informiereUeberAenderung()
+    public void informiereUeberAenderung()
     {
         for (SubWerkzeugObserver beobachter : _alleBeobachter)
         {

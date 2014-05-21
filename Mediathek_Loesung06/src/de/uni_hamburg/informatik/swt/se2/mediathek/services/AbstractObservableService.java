@@ -47,7 +47,7 @@ public abstract class AbstractObservableService implements ObservableService
      * Informiert alle angemeldeten Beobachter dass eine relevante Änderung
      * eingetreten ist.
      */
-    protected void informiereUeberAenderung()
+    public void informiereUeberAenderung()
     {
         for (ServiceObserver beobachter : _beobachterListe)
         {

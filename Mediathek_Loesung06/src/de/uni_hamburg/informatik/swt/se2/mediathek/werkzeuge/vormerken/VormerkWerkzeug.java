@@ -12,6 +12,7 @@ import de.uni_hamburg.informatik.swt.se2.mediathek.services.ServiceObserver;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.kundenstamm.KundenstammService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.MedienbestandService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.verleih.VerleihService;
+import de.uni_hamburg.informatik.swt.se2.mediathek.services.verleih.VerleihServiceImpl;
 import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.SubWerkzeugObserver;
 import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.subwerkzeuge.kundenauflister.KundenauflisterWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.subwerkzeuge.kundendetailanzeiger.KundenDetailAnzeigerWerkzeug;
@@ -213,11 +214,11 @@ public class VormerkWerkzeug
     {
         List<Medium> medien = _medienAuflisterWerkzeug.getSelectedMedien();
         Kunde kunde = _kundenAuflisterWerkzeug.getSelectedKunde();
-        // TODO für Aufgabenblatt 6 (nicht löschen): Prüfung muss noch eingebaut
+        // TODO für Aufgabenblatt 6 (nicht löschen): Fertig! Prüfung muss noch eingebaut
         // werden. Ist dies korrekt imlpementiert, wird der Vormerk-Button gemäß
         // der Anforderungen a), b), c) und e) aktiviert.
         boolean vormerkenMoeglich = (kunde != null) && !medien.isEmpty();
-        //vormerker1 darf nicht gleich vormerker2 sein etc.
+
         if (vormerkenMoeglich == false)
         {
             return false;
@@ -225,6 +226,13 @@ public class VormerkWerkzeug
 
         for (Medium medium : medien)
         {
+            for(Kunde vormerker : medium.gibVormerker())
+            {
+                if(vormerker.equals(kunde))
+                {
+                    return false;
+                }
+            }
             vormerkenMoeglich = medium.vormerkerPlatzFrei();
             
             if (_verleihService.istVerliehen(medium))
@@ -240,7 +248,7 @@ public class VormerkWerkzeug
                 return false;
             }
         }
-        //commit test
+
         return vormerkenMoeglich;
     }
     
@@ -264,7 +272,11 @@ public class VormerkWerkzeug
         {
             medium.fuegeVormerkerHinzu(selectedKunde);
         }
-        //button aktualisieren
+        aktualisiereVormerkButton();
+        
+        // Oberfläche aktualisieren
+        ((VerleihServiceImpl) _verleihService).informiereUeberAenderung();
+        
     }
     
     /**

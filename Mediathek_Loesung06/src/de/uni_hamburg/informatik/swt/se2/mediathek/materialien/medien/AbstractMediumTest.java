@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import de.uni_hamburg.informatik.swt.se2.mediathek.fachwerte.Geldbetrag;
+import de.uni_hamburg.informatik.swt.se2.mediathek.fachwerte.Kundennummer;
+import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.Kunde;
 
 /**
  * Testklasse für AbstractMediumTest. Testklassen für konkrete Medienklassen
@@ -76,6 +78,30 @@ public abstract class AbstractMediumTest
         assertEquals(medium.getTitel(), "Titel2");
         medium.setKommentar("Kommentar2");
         assertEquals(medium.getKommentar(), "Kommentar2");
+    }
+    
+    /**
+     * Dieser Test prüft, ob das Vormerken funktioniert. Es wird ein neuer Kunde hinzugefügt und getestet, ob das Vormerken möglich ist.
+     */
+    @Test
+    public void testVormerken()
+    {
+        Medium medium = getMedium();
+        assertEquals(medium.gibAnzahlVormerker(), 0);
+        assertTrue(medium.vormerkerPlatzFrei());
+        
+        Kunde hans = new Kunde(new Kundennummer(123456), "Hans", "Peter");
+        medium.fuegeVormerkerHinzu(hans);
+        assertEquals(medium.gibErstenVormerker(), hans);
+        
+        assertEquals(medium.gibAnzahlVormerker(), 1);
+        assertTrue(medium.istVorgemerkt());
+        assertTrue(medium.vormerkerPlatzFrei());
+        medium.entferneErstenVormerker();
+        assertEquals(medium.gibAnzahlVormerker(), 0);
+        assertTrue(medium.vormerkerPlatzFrei());
+        assertFalse(medium.istVorgemerkt());
+        
     }
 
     @Test

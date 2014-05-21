@@ -75,13 +75,13 @@ public class VormerkMedienauflisterWerkzeug extends ObservableSubWerkzeug
 	/**
 	 * Holt und setzt die Medieninformationen.
 	 */
-	private void setzeAnzuzeigendeMedien()
+	public void setzeAnzuzeigendeMedien()
 	{
 		List<Medium> medienListe = _medienbestand.getMedien();
 		List<VormerkMedienFormatierer> medienFormatierer = new ArrayList<VormerkMedienFormatierer>();
 		for (Medium medium : medienListe)
 		{
-			// TODO für Aufgabenblatt 6 (nicht löschen): Die
+			// TODO für Aufgabenblatt 6 (nicht löschen): Fertig!Die
 			// VormerkMedienFormatierer müssen noch mit einem möglichen
 			// Entleiher und möglichen Vormerkern ausgestattet werden.
 			// Ist dies korrekt implementiert, erscheinen in der Vormerkansicht

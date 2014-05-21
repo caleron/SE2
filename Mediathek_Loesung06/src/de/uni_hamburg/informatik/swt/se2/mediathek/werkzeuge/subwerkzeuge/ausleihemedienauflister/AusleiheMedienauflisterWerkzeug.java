@@ -80,7 +80,7 @@ public class AusleiheMedienauflisterWerkzeug extends ObservableSubWerkzeug
         for (Medium medium : medienListe)
         {
             boolean istVerliehen = _verleihService.istVerliehen(medium);
-            // TODO für Aufgabenblatt 6 (nicht löschen): Falls ein Vormerker für
+            // TODO für Aufgabenblatt 6 (nicht löschen): Fertig (sieht so aus)! Falls ein Vormerker für
             // ein Medium existiert, muss dieser hier ermittelt werden.
             // Ist dies korrekt implementiert, erscheint in der Ausleiheansicht
             // der Name des Vormerkers, an den ein Medium ausgeliehen werden
