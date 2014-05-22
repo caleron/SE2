@@ -195,10 +195,11 @@ public class VerleihServiceImpl extends AbstractObservableService implements
         {
             Verleihkarte verleihkarte = new Verleihkarte(kunde, medium,
                     ausleihDatum);
-            /*
-             * if istVorgemerkt
-             * dann entferneErstenVormerkerUndRueckeAuf()
-             */
+            
+            if (medium.istVorgemerkt())
+            {
+                medium.entferneErstenVormerker();
+            }
             _verleihkarten.put(medium, verleihkarte);
             _protokollierer.protokolliere(
                     VerleihProtokollierer.EREIGNIS_AUSLEIHE, verleihkarte);
@@ -281,6 +282,12 @@ public class VerleihServiceImpl extends AbstractObservableService implements
             }
         }
         return result;
+    }
+
+    @Override
+    public void informiere()
+    {
+        informiereUeberAenderung();
     }
 
 }

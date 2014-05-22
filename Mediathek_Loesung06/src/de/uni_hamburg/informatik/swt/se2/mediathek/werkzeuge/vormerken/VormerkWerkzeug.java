@@ -161,7 +161,13 @@ public class VormerkWerkzeug
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                merkeAusgewaehlteMedienVor();
+                if (_vormerkUI.getVormerkenButton().getText().equals("vormerken"))
+                {
+                    merkeAusgewaehlteMedienVor();
+                } else
+                {
+                    storniereAusgewaehlteMedien();
+                }
             }
         });
     }
@@ -213,11 +219,11 @@ public class VormerkWerkzeug
     {
         List<Medium> medien = _medienAuflisterWerkzeug.getSelectedMedien();
         Kunde kunde = _kundenAuflisterWerkzeug.getSelectedKunde();
-        // TODO für Aufgabenblatt 6 (nicht löschen): Prüfung muss noch eingebaut
+        // TODO für Aufgabenblatt 6 (nicht löschen): Fertig! Prüfung muss noch eingebaut
         // werden. Ist dies korrekt imlpementiert, wird der Vormerk-Button gemäß
         // der Anforderungen a), b), c) und e) aktiviert.
         boolean vormerkenMoeglich = (kunde != null) && !medien.isEmpty();
-        
+
         if (vormerkenMoeglich == false)
         {
             return false;
@@ -225,6 +231,13 @@ public class VormerkWerkzeug
 
         for (Medium medium : medien)
         {
+            for(Kunde vormerker : medium.gibVormerker())
+            {
+                if(vormerker.equals(kunde))
+                {
+                    return false;
+                }
+            }
             vormerkenMoeglich = medium.vormerkerPlatzFrei();
             
             if (_verleihService.istVerliehen(medium))
@@ -240,7 +253,7 @@ public class VormerkWerkzeug
                 return false;
             }
         }
-        //commit test
+
         return vormerkenMoeglich;
     }
     
@@ -264,6 +277,10 @@ public class VormerkWerkzeug
         {
             medium.fuegeVormerkerHinzu(selectedKunde);
         }
+        aktualisiereVormerkButton();
+        
+        // Oberfläche aktualisieren
+         _verleihService.informiere();
         
     }
     
@@ -298,7 +315,16 @@ public class VormerkWerkzeug
     private void aktualisiereVormerkButton()
     {
         boolean istVormerkenMoeglich = istVormerkenMoeglich();
-        _vormerkUI.getVormerkenButton().setEnabled(istVormerkenMoeglich);
+        boolean istVormerkungStornierenMoeglich = istVormerkungStornierenMoeglich();
+        _vormerkUI.getVormerkenButton().setEnabled(istVormerkenMoeglich || istVormerkungStornierenMoeglich);
+        
+        if (istVormerkenMoeglich)
+        {
+            _vormerkUI.getVormerkenButton().setText("vormerken");
+        } else if(istVormerkungStornierenMoeglich)
+        {
+            _vormerkUI.getVormerkenButton().setText("stornieren");
+        }
     }
     
     /**
@@ -309,5 +335,73 @@ public class VormerkWerkzeug
     public JPanel getUIPanel()
     {
         return _vormerkUI.getUIPanel();
+    }
+    
+    /**
+     * Prüft, ob das Stornieren einer Vormerkung möglich ist.
+     */
+    public boolean istVormerkungStornierenMoeglich()
+    {
+        List<Medium> medien = _medienAuflisterWerkzeug.getSelectedMedien();
+        Kunde kunde = _kundenAuflisterWerkzeug.getSelectedKunde();
+        // TODO für Aufgabenblatt 6 (nicht löschen) Zusatz FERTIG
+        boolean stornierenMoeglich = (kunde != null) && !medien.isEmpty();
+        
+
+        if (!stornierenMoeglich)
+        {
+            return false;
+        }
+
+        for (Medium medium : medien)
+        {
+            boolean vormerkerVorhanden = false;
+            for(Kunde vormerker : medium.gibVormerker())
+            {
+                if(vormerker.equals(kunde))
+                {
+                    vormerkerVorhanden = true;
+                }
+            }
+            if (!vormerkerVorhanden)
+            {
+                return false;
+            }
+            
+            if (!medium.istVorgemerkt())
+            {
+                return false;
+            }
+            
+        }
+
+        return stornierenMoeglich;
+    }
+
+    /**
+     * Storniert die Vormerkung für die ausgewählten Medien für einen Kunden. Diese Methode wird
+     * über einen Listener angestoßen, der reagiert, wenn der Benutzer den
+     * VormerkButton drückt.
+     * 
+     * @require istStornierenMoeglich()
+     * @ensure Vormerkung storniert
+     */
+    public void storniereAusgewaehlteMedien()
+    {
+        
+        assert istVormerkungStornierenMoeglich() : "Vorbedingung verletzt: istVormerkungStornierenMoeglich()"; 
+        
+        List<Medium> selectedMedien = _medienAuflisterWerkzeug.getSelectedMedien();
+        Kunde selectedKunde = _kundenAuflisterWerkzeug.getSelectedKunde();
+        // TODO für Aufgabenblatt 6 (nicht löschen): Vormerken stornieren möglich
+        
+        for (Medium medium : selectedMedien)
+        {
+            medium.entferneVormerker(selectedKunde);
+        }
+        aktualisiereVormerkButton();
+        
+        // Oberfläche aktualisieren
+         _verleihService.informiere();
     }
 }

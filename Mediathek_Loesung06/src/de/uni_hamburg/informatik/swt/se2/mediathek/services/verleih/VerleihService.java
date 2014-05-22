@@ -227,5 +227,10 @@ public interface VerleihService extends ObservableService
      * @ensure (result != null)
      */
     Verleihkarte getVerleihkarteFuer(Medium medium);
+    
+    /**
+     * Über diese Methode lässt sich die GUI (bzw. die Listen) aktualisieren.
+     */
+    void informiere();
 
 }
