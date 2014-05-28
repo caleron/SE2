@@ -39,6 +39,7 @@ public class VorstellungsAuswaehlWerkzeug extends Beobachtbar
     private void vorstellungWurdeAusgewaehlt()
     {
         //TODO vorstellung auswählen
+        meldeAenderung();
     }
 
     /**

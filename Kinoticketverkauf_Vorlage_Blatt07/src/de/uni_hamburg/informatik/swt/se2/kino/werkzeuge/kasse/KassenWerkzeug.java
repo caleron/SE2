@@ -62,6 +62,9 @@ public class KassenWerkzeug implements Beobachter
         setzeAusgewaehlteVorstellung();
 
         _ui.zeigeFenster();
+        
+        _datumAuswaehlWerkzeug.fuegeBeobachterHinzu(this);
+        _vorstellungAuswaehlWerkzeug.fuegeBeobachterHinzu(this);
     }
 
     /**
@@ -125,7 +128,17 @@ public class KassenWerkzeug implements Beobachter
     @Override
     public void reagiereAufAenderung(Beobachtbar werkzeug)
     {
-        // TODO reagieren
-        
+        // TODO reagieren FERTIG
+        System.out.println("reagiere");
+        if (werkzeug instanceof DatumAuswaehlWerkzeug)
+        {
+            _vorstellungAuswaehlWerkzeug.setTagesplan(_kino.getTagesplan(getAusgewaehltesDatum()));
+            _platzVerkaufsWerkzeug.setVorstellung(getAusgewaehlteVorstellung());
+        } 
+        else if (werkzeug instanceof VorstellungsAuswaehlWerkzeug)
+        {
+            _vorstellungAuswaehlWerkzeug.setTagesplan(_kino.getTagesplan(getAusgewaehltesDatum()));
+            _platzVerkaufsWerkzeug.setVorstellung(getAusgewaehlteVorstellung());
+        }
     }
 }
