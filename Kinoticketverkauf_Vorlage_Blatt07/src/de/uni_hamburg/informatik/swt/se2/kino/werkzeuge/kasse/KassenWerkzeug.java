@@ -7,6 +7,8 @@ import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Datum;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Kino;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Tagesplan;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
+import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.beobachter.Beobachtbar;
+import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.beobachter.Beobachter;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.datumsauswaehler.DatumAuswaehlWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.platzverkauf.PlatzVerkaufsWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.vorstellungsauswaehler.VorstellungsAuswaehlWerkzeug;
@@ -19,7 +21,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.vorstellungsauswaehler.V
  * @author SE2-Team
  * @version SoSe 2014
  */
-public class KassenWerkzeug
+public class KassenWerkzeug implements Beobachter
 {
     // Das Material dieses Werkzeugs
     private Kino _kino;
@@ -118,5 +120,12 @@ public class KassenWerkzeug
     private Vorstellung getAusgewaehlteVorstellung()
     {
         return _vorstellungAuswaehlWerkzeug.getAusgewaehlteVorstellung();
+    }
+
+    @Override
+    public void reagiereAufAenderung(Beobachtbar werkzeug)
+    {
+        // TODO reagieren
+        
     }
 }

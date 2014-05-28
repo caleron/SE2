@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Kinosaal;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
+import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.beobachter.Beobachtbar;
 
 /**
  * Mit diesem Werkzeug können Plätze verkauft und storniert werden. Es arbeitet
@@ -21,7 +22,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
  * @author SE2-Team
  * @version SoSe 2014
  */
-public class PlatzVerkaufsWerkzeug
+public class PlatzVerkaufsWerkzeug extends Beobachtbar
 {
     // Die aktuelle Vorstellung, deren Plätze angezeigt werden. Kann null sein.
     private Vorstellung _vorstellung;
