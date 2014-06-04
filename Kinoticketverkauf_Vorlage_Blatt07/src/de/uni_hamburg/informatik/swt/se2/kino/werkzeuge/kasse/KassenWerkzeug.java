@@ -128,7 +128,7 @@ public class KassenWerkzeug implements Beobachter
     @Override
     public void reagiereAufAenderung(Beobachtbar werkzeug)
     {
-        // TODO reagieren FERTIG
+        // TODO reagieren FERTIG. Juhuu!
         if (werkzeug instanceof DatumAuswaehlWerkzeug)
         {
             setzeTagesplanFuerAusgewaehltesDatum();
