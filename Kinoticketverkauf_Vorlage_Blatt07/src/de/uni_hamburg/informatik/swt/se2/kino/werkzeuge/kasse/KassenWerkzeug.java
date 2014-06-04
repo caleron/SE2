@@ -129,16 +129,13 @@ public class KassenWerkzeug implements Beobachter
     public void reagiereAufAenderung(Beobachtbar werkzeug)
     {
         // TODO reagieren FERTIG
-        System.out.println("reagiere");
         if (werkzeug instanceof DatumAuswaehlWerkzeug)
         {
-            _vorstellungAuswaehlWerkzeug.setTagesplan(_kino.getTagesplan(getAusgewaehltesDatum()));
-            _platzVerkaufsWerkzeug.setVorstellung(getAusgewaehlteVorstellung());
+            setzeTagesplanFuerAusgewaehltesDatum();
         } 
         else if (werkzeug instanceof VorstellungsAuswaehlWerkzeug)
         {
-            _vorstellungAuswaehlWerkzeug.setTagesplan(_kino.getTagesplan(getAusgewaehltesDatum()));
-            _platzVerkaufsWerkzeug.setVorstellung(getAusgewaehlteVorstellung());
+            setzeAusgewaehlteVorstellung();
         }
     }
 }
