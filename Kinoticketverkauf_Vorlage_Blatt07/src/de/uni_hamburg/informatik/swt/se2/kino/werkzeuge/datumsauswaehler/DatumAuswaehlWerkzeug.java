@@ -85,7 +85,6 @@ public class DatumAuswaehlWerkzeug extends Beobachtbar
     {
         _ui.getZurueckButton().addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 zurueckButtonWurdeGedrueckt();
@@ -94,7 +93,6 @@ public class DatumAuswaehlWerkzeug extends Beobachtbar
 
         _ui.getWeiterButton().addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 weiterButtonWurdeGedrueckt();

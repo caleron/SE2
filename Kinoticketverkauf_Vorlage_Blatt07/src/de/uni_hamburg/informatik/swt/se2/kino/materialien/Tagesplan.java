@@ -23,7 +23,6 @@ public class Tagesplan
     // Tagesplans verwendet.
     private static Comparator<Vorstellung> _vergleichNachAnfangszeit = new Comparator<Vorstellung>()
     {
-        @Override
         public int compare(Vorstellung v1, Vorstellung v2)
         {
             assert v1 != null : "Vorbedingung verletzt: v1 != null";

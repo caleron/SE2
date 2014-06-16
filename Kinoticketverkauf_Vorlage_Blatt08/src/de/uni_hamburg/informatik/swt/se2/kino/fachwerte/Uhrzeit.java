@@ -92,7 +92,6 @@ public final class Uhrzeit implements Comparable<Uhrzeit>
         return _stunden * 60 + _minuten;
     }
     
-    @Override
     public int compareTo(Uhrzeit u)
     {
         return this.minutenSeitMitternacht() - u.minutenSeitMitternacht();

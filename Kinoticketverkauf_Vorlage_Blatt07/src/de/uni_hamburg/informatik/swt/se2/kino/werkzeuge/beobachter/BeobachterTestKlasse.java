@@ -11,7 +11,6 @@ public class BeobachterTestKlasse implements Beobachter
 {
     private int counter = 0;
     
-    @Override
     public void reagiereAufAenderung(Beobachtbar werkzeug)
     {
         // TODO Auto-generated method stub

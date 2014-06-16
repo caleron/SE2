@@ -58,7 +58,6 @@ public class PlatzVerkaufsWerkzeug extends Beobachtbar
     {
         _ui.getVerkaufenButton().addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 verkaufePlaetze(_vorstellung);
@@ -67,7 +66,6 @@ public class PlatzVerkaufsWerkzeug extends Beobachtbar
 
         _ui.getStornierenButton().addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 stornierePlaetze(_vorstellung);
@@ -77,7 +75,6 @@ public class PlatzVerkaufsWerkzeug extends Beobachtbar
         _ui.getPlatzplan().addPlatzSelectionListener(
                 new PlatzSelectionListener()
                 {
-                    @Override
                     public void auswahlGeaendert(PlatzSelectionEvent event)
                     {
                         reagiereAufNeuePlatzAuswahl(event

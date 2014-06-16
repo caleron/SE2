@@ -222,7 +222,6 @@ public final class Datum implements Comparable<Datum>
         return _jahr * 366 + _monat * 31 + _tag;
     }
 
-    @Override
     public int compareTo(Datum anderesDatum)
     {
         return tageSeit(anderesDatum);

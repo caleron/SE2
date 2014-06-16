@@ -72,7 +72,6 @@ public class KassenWerkzeug
     {
         _datumAuswaehlWerkzeug.registriereBeobachter(new SubwerkzeugObserver()
         {
-            @Override
             public void reagiereAufAenderung()
             {
                 setzeTagesplanFuerAusgewaehltesDatum();
@@ -82,7 +81,6 @@ public class KassenWerkzeug
         _vorstellungAuswaehlWerkzeug
                 .registriereBeobachter(new SubwerkzeugObserver()
                 {
-                    @Override
                     public void reagiereAufAenderung()
                     {
                         setzeAusgewaehlteVorstellung();
@@ -97,7 +95,6 @@ public class KassenWerkzeug
     {
         _ui.getBeendenButton().addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 reagiereAufBeendenButton();

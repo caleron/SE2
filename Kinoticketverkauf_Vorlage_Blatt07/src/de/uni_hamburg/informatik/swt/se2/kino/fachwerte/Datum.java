@@ -108,7 +108,6 @@ public final class Datum implements Comparable<Datum>
      *         ist, einen Wert größer als 0, falls dieses Datum größer als datum
      *         ist, sonst 0.
      */
-    @Override
     public int compareTo(Datum datum)
     {
         return tageSeit(datum);

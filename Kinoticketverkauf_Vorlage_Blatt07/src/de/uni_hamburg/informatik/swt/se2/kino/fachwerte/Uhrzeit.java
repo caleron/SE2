@@ -88,7 +88,6 @@ public final class Uhrzeit implements Comparable<Uhrzeit>
         return result;
     }
 
-    @Override
     public int compareTo(Uhrzeit u)
     {
         return (_stunden - u._stunden) * 60 + _minuten - u._minuten;

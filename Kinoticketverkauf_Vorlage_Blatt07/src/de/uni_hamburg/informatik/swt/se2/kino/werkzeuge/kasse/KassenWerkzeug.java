@@ -74,7 +74,6 @@ public class KassenWerkzeug implements Beobachter
     {
         _ui.getBeendenButton().addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 reagiereAufBeendenButton();
@@ -125,7 +124,6 @@ public class KassenWerkzeug implements Beobachter
         return _vorstellungAuswaehlWerkzeug.getAusgewaehlteVorstellung();
     }
 
-    @Override
     public void reagiereAufAenderung(Beobachtbar werkzeug)
     {
         // TODO reagieren FERTIG. Juhuu!

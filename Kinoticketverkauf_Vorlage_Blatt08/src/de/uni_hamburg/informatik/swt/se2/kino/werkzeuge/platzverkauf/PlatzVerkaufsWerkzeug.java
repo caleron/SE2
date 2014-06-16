@@ -57,7 +57,6 @@ public class PlatzVerkaufsWerkzeug
     {
         _ui.getVerkaufenButton().addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 fuehreBarzahlungDurch();
@@ -66,7 +65,6 @@ public class PlatzVerkaufsWerkzeug
 
         _ui.getStornierenButton().addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 stornierePlaetze(_vorstellung);
@@ -76,7 +74,6 @@ public class PlatzVerkaufsWerkzeug
         _ui.getPlatzplan().addPlatzSelectionListener(
                 new PlatzSelectionListener()
                 {
-                    @Override
                     public void auswahlGeaendert(PlatzSelectionEvent event)
                     {
                         reagiereAufNeuePlatzAuswahl(event

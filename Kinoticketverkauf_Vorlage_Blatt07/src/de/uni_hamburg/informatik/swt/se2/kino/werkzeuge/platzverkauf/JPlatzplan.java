@@ -58,7 +58,6 @@ class JPlatzplan extends JComponent
     {
         _buttonListener = new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 // Es gibt nur einen Listener für alle Buttons. Welcher der

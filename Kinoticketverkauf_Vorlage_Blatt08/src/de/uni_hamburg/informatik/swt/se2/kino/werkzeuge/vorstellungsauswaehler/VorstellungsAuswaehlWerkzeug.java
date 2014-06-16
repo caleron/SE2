@@ -111,7 +111,6 @@ public class VorstellungsAuswaehlWerkzeug extends ObservableSubwerkzeug
         _ui.getVorstellungAuswahlList().addListSelectionListener(
                 new ListSelectionListener()
                 {
-                    @Override
                     public void valueChanged(ListSelectionEvent event)
                     {
                         if (!event.getValueIsAdjusting())
