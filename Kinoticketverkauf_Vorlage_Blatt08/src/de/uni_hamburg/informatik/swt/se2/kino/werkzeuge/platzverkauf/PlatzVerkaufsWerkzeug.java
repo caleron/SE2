@@ -87,6 +87,7 @@ public class PlatzVerkaufsWerkzeug
      */
     private void fuehreBarzahlungDurch()
     {
+        //TODO bezahlungsfenster
         verkaufePlaetze(_vorstellung);
     }
 
