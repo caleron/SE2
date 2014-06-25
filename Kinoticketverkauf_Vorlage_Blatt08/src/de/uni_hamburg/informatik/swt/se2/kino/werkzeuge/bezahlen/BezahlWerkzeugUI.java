@@ -7,8 +7,9 @@ import java.awt.*;
 import java.awt.Dialog.ModalityType;
 
 import javax.swing.*;
-
 /**
+ * Die GUI des {@link BezahlWerkzeug}.
+ * 
  * @author 3buchhar
  *
  */
@@ -24,6 +25,10 @@ public class BezahlWerkzeugUI
     private JTextField _restBetragTextField;
     private JDialog _bezahlDialog;
     
+    
+    /**
+     * Initialisiert die Benutzeroberfläche.
+     */
     public BezahlWerkzeugUI()
     {
         _bezahlDialog = new JDialog();
@@ -34,7 +39,7 @@ public class BezahlWerkzeugUI
         _restBetragLabel = new JLabel("Restbetrag:", SwingConstants.CENTER);
         _zuBezahlenTextField = new JTextField();
         _bezahltTextField = new JTextField();
-        _restBetragTextField = new JTextField();
+        _restBetragTextField = new JTextField("Zu wenig bezahlt");
         
         _zuBezahlenTextField.setFocusable(false);
         _restBetragTextField.setFocusable(false);
@@ -56,31 +61,55 @@ public class BezahlWerkzeugUI
         
     }
     
+    /**
+     * Liefert den OkButton zurück
+     * @return der OKButton
+     */
     public JButton gibOKButton()
     {
         return _okButton;
     }
     
+    /**
+     * Liefert den AbbrechenButton zurück
+     * @return der AbbrechenButton
+     */
     public JButton gibAbbrechenButton()
     {
         return _abbrechenButton;
     }
     
+    /**
+     * Liefert das BezahlenTextField zurück
+     * @return das BezahlenTextField
+     */
     public JTextField gibZuBezahlenTextField()
     {
         return _zuBezahlenTextField;
     }
     
+    /**
+     * Liefert das bezahltTextField zurück
+     * @return das bezahltTextField
+     */
     public JTextField gibBezahltTextField()
     {
         return _bezahltTextField;
     }
     
+    /**
+     * Liefert das RestbetragTextfield zurück
+     * @return das RestbetragTextfield
+     */
     public JTextField gibRestBetragTextField()
     {
         return _restBetragTextField;
     }
     
+    /**
+     * Liefert den Dialog zurück
+     * @return der Dialog
+     */
     public JDialog gibDialog()
     {
         return _bezahlDialog;
