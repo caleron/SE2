@@ -43,12 +43,22 @@ public class BezahlWerkzeug
             {
                 _okGeklickt = e.getComponent().equals(_ui.gibOKButton());
                 
-                if(_ui.gibOKButton().isEnabled() || !_okGeklickt)
+                int bezahlt = 0;
+                
+                try
+                {
+                    bezahlt = Integer.parseInt(_ui.gibBezahltTextField().getText());
+                } 
+                catch (Exception ex)  {}
+                
+                if((_ui.gibOKButton().isEnabled() && _preis <= bezahlt) || !_okGeklickt)
                 {
                 	_ui.gibDialog().setVisible(false);
                 }
-                
-                
+                else if (_ui.gibOKButton().isEnabled() && _preis > bezahlt)
+                {
+                	_ui.gibOKButton().setEnabled(false);
+                }
             }
         };
         
@@ -103,13 +113,13 @@ public class BezahlWerkzeug
         _preis = preis;
         _ui.gibOKButton().setEnabled(false);
         
-        System.out.println("halt");
-        
         _ui.gibZuBezahlenTextField().setText(Integer.toString(preis));
+        _ui.gibRestBetragTextField().setText("Zu wenig bezahlt");
+        _ui.gibBezahltTextField().setText("");
+        _ui.gibBezahltTextField().requestFocus();
         
         _ui.gibDialog().setVisible(true);
         
-        System.out.println("weiter");
         return _okGeklickt;
     }
 }
