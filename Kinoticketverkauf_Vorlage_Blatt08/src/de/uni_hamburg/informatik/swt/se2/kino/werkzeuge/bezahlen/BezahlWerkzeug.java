@@ -92,6 +92,7 @@ public class BezahlWerkzeug
 
     /**
      * Zeigt den BezahlDialog
+     * 
      * @require preis != 0
      * @param preis
      * @return
