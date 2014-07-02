@@ -123,20 +123,20 @@ public class PlatzVerkaufsWerkzeug
      */
     private void aktualisierePreisanzeige(Set<Platz> plaetze)
     {
-    	// TODO Eurocent in Euro
+    	// TODO Preis ändern
         _ausgewaehlterGesamtbetrag = 0;
         if (istVerkaufenMoeglich(plaetze))
         {
             int preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             _ui.getPreisLabel().setText(
-                    "Gesamtpreis: " + preis + " Eurocent");
+                    "Gesamtpreis: " + preis + " Euro");
             _ausgewaehlterGesamtbetrag = preis;
         }
         else if (istStornierenMoeglich(plaetze))
         {
             int preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             _ui.getPreisLabel().setText(
-                    "Gesamtstorno: " + preis + " Eurocent");
+                    "Gesamtstorno: " + preis + " Euro");
         }
         else if (!plaetze.isEmpty())
         {
@@ -146,7 +146,7 @@ public class PlatzVerkaufsWerkzeug
         else
         {
             _ui.getPreisLabel().setText(
-                    "Gesamtpreis: 0 Eurocent");
+                    "Gesamtpreis: 0 Euro");
         }
     }
 

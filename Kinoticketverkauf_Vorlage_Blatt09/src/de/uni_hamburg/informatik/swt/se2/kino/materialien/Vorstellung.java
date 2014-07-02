@@ -191,6 +191,7 @@ public class Vorstellung
     {
         assert hatPlaetze(plaetze) : "Vorbedingung verletzt: hatPlaetze(plaetze)";
 
+        // TODO multiplizieren
         return _preis * plaetze.size();
     }
 
