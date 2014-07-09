@@ -10,16 +10,14 @@ public final class Geldbetrag
 	 * @param eurocent
 	 *            Der Betrag in ganzen Euro-Cent
 	 * 
-	 * @require eurocent >= 0;
 	 */
 	private Geldbetrag(int eurocent)
 	{
-		assert eurocent >= 0 : "Vorbedingung verletzt: eurocent >= 0";
+		//assert eurocent >= 0 : "Vorbedingung verletzt: eurocent >= 0";
 		_betragInCent = eurocent;
 	}
 
-	// TODO Konstruktor für String
-	// TODO größer Vergleich implementieren
+	// TODO Konstruktor für String fertig
 
 	/**
 	 * Konvertiert einen Integer in einen Geldbetrag
@@ -42,10 +40,12 @@ public final class Geldbetrag
 	 */
 	public static Geldbetrag get(String s)
 	{
-		String[] stringArray = s.split(",");
+		/*String[] stringArray = s.split(",");
+
+		assert stringArray.length <= 2 : "Vorbedingung verletzt: stringArray.length <= 2";*/
 		
-		assert stringArray.length <= 2 : "Vorbedingung verletzt: stringArray.length <= 2";
-		int i = 0;
+		return new Geldbetrag((int) Math.round(Double.parseDouble(s.replace(",", ".")) * 100));
+		/*int i = 0;
 		try
 		{
 			i = Integer.parseInt(stringArray[0]) * 100;
@@ -56,8 +56,9 @@ public final class Geldbetrag
 		}
 		catch (Exception e)
 		{
+
 		}
-		return new Geldbetrag(i);
+		return new Geldbetrag(i);*/
 	}
 
 	/**
@@ -76,7 +77,13 @@ public final class Geldbetrag
 	 */
 	public String getFormatiertenString()
 	{
-		return _betragInCent / 100 + "," + getFormatiertenCentAnteil();
+		if (_betragInCent < 0 && _betragInCent > -100)
+		{
+			return "-" + _betragInCent / 100 + "," + getFormatiertenCentAnteil();
+		} else
+		{
+			return _betragInCent / 100 + "," + getFormatiertenCentAnteil();
+		}
 	}
 
 	/**
@@ -86,8 +93,8 @@ public final class Geldbetrag
 	 */
 	private String getFormatiertenCentAnteil()
 	{
-		String result = _betragInCent % 100 + "";
-		if (_betragInCent % 100 < 10)
+		String result = Math.abs(_betragInCent % 100) + "";
+		if (Math.abs(_betragInCent % 100) < 10)
 		{
 			result = "0" + result;
 		}

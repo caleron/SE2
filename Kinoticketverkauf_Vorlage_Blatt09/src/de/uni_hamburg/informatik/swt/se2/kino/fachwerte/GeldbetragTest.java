@@ -19,7 +19,7 @@ public class GeldbetragTest
 	@Test
     public final void testGeldbetrag()
     {
-		// TODO teste negative Beträge
+		// TODO teste negative Beträge fertig
         Geldbetrag betrag = Geldbetrag.get(100);
         assertEquals("1,00", betrag.getFormatiertenString());
 
@@ -31,9 +31,15 @@ public class GeldbetragTest
 
         betrag = Geldbetrag.get(101);
         assertEquals("1,01", betrag.getFormatiertenString());
+        
+        betrag = Geldbetrag.get(-101);
+        assertEquals("-1,01", betrag.getFormatiertenString());
+        
+        betrag = Geldbetrag.get(-99);
+        assertEquals("-0,99", betrag.getFormatiertenString());
     }
 	
-	//TODO test addiere, subtrahiere, multipliziere
+	//TODO test addiere, subtrahiere, multipliziere fertig
 	
 	@Test
 	public final void testAddiere()
@@ -65,6 +71,19 @@ public class GeldbetragTest
 		Geldbetrag betrag5 = Geldbetrag.get(-145);
 		Geldbetrag betrag6 = Geldbetrag.get(-5);
 		assertTrue(-140 == Geldbetrag.subtrahiere(betrag5, betrag6).getBetragInCent());
+	}
+	
+	@Test
+	public final void testMultipliziere()
+	{
+		Geldbetrag betrag = Geldbetrag.get(145);
+		assertTrue(290 == Geldbetrag.multipliziere(betrag, 2).getBetragInCent());
+		
+		Geldbetrag betrag3 = Geldbetrag.get(145);
+		assertTrue(-290 == Geldbetrag.multipliziere(betrag3, -2).getBetragInCent());
+		
+		Geldbetrag betrag5 = Geldbetrag.get(-145);
+		assertTrue(290 == Geldbetrag.multipliziere(betrag5, -2).getBetragInCent());
 	}
 
     @Test

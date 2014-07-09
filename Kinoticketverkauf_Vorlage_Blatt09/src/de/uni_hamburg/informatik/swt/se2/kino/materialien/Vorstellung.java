@@ -3,6 +3,7 @@ package de.uni_hamburg.informatik.swt.se2.kino.materialien;
 import java.util.Set;
 
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Datum;
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Uhrzeit;
 
@@ -22,7 +23,7 @@ public class Vorstellung
     private Uhrzeit _anfangszeit;
     private Uhrzeit _endzeit;
     private Datum _datum;
-    private int _preis;
+    private Geldbetrag _preis;
     private boolean[][] _verkauft;
     private int _anzahlVerkauftePlaetze;
 
@@ -65,7 +66,7 @@ public class Vorstellung
         _anfangszeit = anfangszeit;
         _endzeit = endzeit;
         _datum = datum;
-        _preis = preis;
+        _preis = Geldbetrag.get(preis);
         _verkauft = new boolean[kinosaal.getAnzahlReihen()][kinosaal
                 .getAnzahlSitzeProReihe()];
         _anzahlVerkauftePlaetze = 0;
@@ -126,7 +127,7 @@ public class Vorstellung
      * zurück.
      * 
      */
-    public int getPreis()
+    public Geldbetrag getPreis()
     {
         return _preis;
     }
@@ -187,12 +188,12 @@ public class Vorstellung
      * 
      * @require hatPlaetze(plaetze)
      */
-    public int getPreisFuerPlaetze(Set<Platz> plaetze)
+    public Geldbetrag getPreisFuerPlaetze(Set<Platz> plaetze)
     {
         assert hatPlaetze(plaetze) : "Vorbedingung verletzt: hatPlaetze(plaetze)";
 
-        // TODO multiplizieren
-        return _preis * plaetze.size();
+        // TODO multiplizieren fertig
+        return Geldbetrag.multipliziere(_preis, plaetze.size());
     }
 
     /**

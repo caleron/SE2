@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.ObservableSubwerkzeug;
 
 /**
@@ -34,7 +35,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
 {
 
     private BarzahlungsWerkzeugUI _ui;
-    private int _preis;
+    private Geldbetrag _preis;
     private boolean _barzahlungErfolgreich;
     private boolean _ausreichenderGeldbetrag;
 
@@ -55,7 +56,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param preis der einzunehmende Gelbetrag
      */
-    public void fuehreBarzahlungDurch(int preis)
+    public void fuehreBarzahlungDurch(Geldbetrag preis)
     {
         _preis = preis;
         _ausreichenderGeldbetrag = false;
@@ -168,10 +169,10 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         }
         try
         {
-        	// TODO Methode so ändern, dass kommaseparierte Beträge möglich sind
-            int eingabeBetrag = Integer.parseInt(eingabePreis);
-            _ausreichenderGeldbetrag = (eingabeBetrag >= _preis);
-            int differenz = Math.abs(eingabeBetrag - _preis);
+        	// TODO Methode so ändern, dass kommaseparierte Beträge möglich sind fertig
+            Geldbetrag eingabeBetrag = Geldbetrag.get(eingabePreis);
+            _ausreichenderGeldbetrag = (eingabeBetrag.getBetragInCent() >= _preis.getBetragInCent());
+            Geldbetrag differenz = Geldbetrag.get(Math.abs(eingabeBetrag.getBetragInCent() - _preis.getBetragInCent()));
             zeigeRestbetrag(differenz);
         }
         catch (NumberFormatException ignore)
@@ -247,9 +248,9 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param differenz ein eingegebener Betrag
      */
-    private void zeigeRestbetrag(int differenz)
+    private void zeigeRestbetrag(Geldbetrag differenz)
     {
-    	// TODO Eurocent in Euro
+    	// TODO Eurocent in Euro fertig?!
         _ui.getRestbetragTextfield().setText(differenz + " Euro");
     }
 
