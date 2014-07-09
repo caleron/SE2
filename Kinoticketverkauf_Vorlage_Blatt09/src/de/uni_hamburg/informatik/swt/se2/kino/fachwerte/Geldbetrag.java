@@ -56,7 +56,7 @@ public final class Geldbetrag
 		}
 		catch (Exception e)
 		{
-
+ 
 		}
 		return new Geldbetrag(i);*/
 	}
